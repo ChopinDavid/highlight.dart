@@ -5,7 +5,7 @@ import '../src/common_modes.dart';
 
 final javascript = Mode(refs: {
   '~contains~4~starts~contains~1~contains~5': Mode(
-      className: "number",
+      className: "js-number",
       variants: [
         Mode(begin: "\\b(0[bB][01]+)n?"),
         Mode(begin: "\\b(0[oO][0-7]+)n?"),
@@ -15,7 +15,7 @@ final javascript = Mode(refs: {
       ],
       relevance: 0),
   '~contains~4~starts~contains~1~contains~4': Mode(
-      className: "string",
+      className: "js-string",
       begin: "`",
       end: "`",
       contains: [BACKSLASH_ESCAPE, Mode(ref: '~contains~4~starts~contains~1')]),
@@ -29,11 +29,11 @@ final javascript = Mode(refs: {
         "css"
       ])),
   '~contains~4~starts~contains~1':
-      Mode(className: "subst", begin: "\\\$\\{", end: "\\}", keywords: {
-    "keyword":
+      Mode(className: "js-subst", begin: "\\\$\\{", end: "\\}", keywords: {
+    "js-keyword":
         "in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",
-    "literal": "true false null undefined NaN Infinity",
-    "built_in":
+    "js-literal": "true false null undefined NaN Infinity",
+    "js-built_in":
         "eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"
   }, contains: [
     APOS_STRING_MODE,
@@ -59,17 +59,17 @@ final javascript = Mode(refs: {
   "mjs",
   "cjs"
 ], keywords: {
-  "keyword":
+  "js-keyword":
       "in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",
-  "literal": "true false null undefined NaN Infinity",
-  "built_in":
+  "js-literal": "true false null undefined NaN Infinity",
+  "js-built_in":
       "eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"
 }, contains: [
   Mode(
-      className: "meta",
+      className: "js-meta",
       relevance: 10,
       begin: "^\\s*['\"]use (strict|asm)['\"]"),
-  Mode(className: "meta", begin: "^#!", end: "\$"),
+  Mode(className: "js-meta", begin: "^#!", end: "\$"),
   APOS_STRING_MODE,
   QUOTE_STRING_MODE,
   Mode(ref: '~contains~4'),
@@ -77,14 +77,14 @@ final javascript = Mode(refs: {
   Mode(ref: '~contains~4~starts~contains~1~contains~4'),
   C_LINE_COMMENT_MODE,
   Mode(
-      className: "comment",
+      className: "js-comment",
       begin: "/\\*\\*",
       end: "\\*/",
       contains: [
-        Mode(className: "doctag", begin: "@[A-Za-z]+", contains: [
-          Mode(className: "type", begin: "\\{", end: "\\}", relevance: 0),
+        Mode(className: "js-doctag", begin: "@[A-Za-z]+", contains: [
+          Mode(className: "js-type", begin: "\\{", end: "\\}", relevance: 0),
           Mode(
-              className: "variable",
+              className: "js-variable",
               begin: "[A-Za-z\$_][0-9A-Za-z\$_]*(?=\\s*(-)|\$)",
               endsParent: true,
               relevance: 0),
@@ -92,7 +92,7 @@ final javascript = Mode(refs: {
         ]),
         PHRASAL_WORDS_MODE,
         Mode(
-            className: "doctag",
+            className: "js-doctag",
             begin: "(?:TODO|FIXME|NOTE|BUG|XXX):",
             relevance: 0)
       ],
@@ -106,7 +106,7 @@ final javascript = Mode(refs: {
         relevance: 0,
         contains: [
           Mode(
-              className: "attr",
+              className: "js-attr",
               begin: "[A-Za-z\$_][0-9A-Za-z\$_]*",
               relevance: 0)
         ])
@@ -120,12 +120,12 @@ final javascript = Mode(refs: {
         C_BLOCK_COMMENT_MODE,
         REGEXP_MODE,
         Mode(
-            className: "function",
+            className: "js-function",
             begin: "(\\(.*?\\)|[A-Za-z\$_][0-9A-Za-z\$_]*)\\s*=>",
             returnBegin: true,
             end: "\\s*=>",
             contains: [
-              Mode(className: "params", variants: [
+              Mode(className: "js-params", variants: [
                 Mode(begin: "[A-Za-z\$_][0-9A-Za-z\$_]*"),
                 Mode(begin: "\\(\\s*\\)"),
                 Mode(
@@ -134,10 +134,10 @@ final javascript = Mode(refs: {
                     excludeBegin: true,
                     excludeEnd: true,
                     keywords: {
-                      "keyword":
+                      "js-keyword":
                           "in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",
-                      "literal": "true false null undefined NaN Infinity",
-                      "built_in":
+                      "js-literal": "true false null undefined NaN Infinity",
+                      "js-built_in":
                           "eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"
                     },
                     contains: [
@@ -153,7 +153,7 @@ final javascript = Mode(refs: {
                     ])
               ])
             ]),
-        Mode(className: "", begin: "\\s", end: "\\s*", skip: true),
+        Mode(className: "js-", begin: "\\s", end: "\\s*", skip: true),
         Mode(variants: [
           Mode(begin: "<>", end: "</>"),
           Mode(
@@ -171,17 +171,17 @@ final javascript = Mode(refs: {
       ],
       relevance: 0),
   Mode(
-      className: "function",
+      className: "js-function",
       beginKeywords: "function",
       end: "\\{",
       excludeEnd: true,
       contains: [
         Mode(
-            className: "title",
+            className: "js-title",
             begin: "[A-Za-z\$_][0-9A-Za-z\$_]*",
             relevance: 0),
         Mode(
-            className: "params",
+            className: "js-params",
             begin: "\\(",
             end: "\\)",
             excludeBegin: true,
@@ -202,7 +202,7 @@ final javascript = Mode(refs: {
   Mode(begin: "\\\$[(.]"),
   METHOD_GUARD,
   Mode(
-      className: "class",
+      className: "js-class",
       beginKeywords: "class",
       end: "[{;=]",
       excludeEnd: true,
